@@ -1,6 +1,8 @@
 import {
     createEmployee,
     loginEmployee,
+    currrentEmployee,
+
 
   } from "../Reducers/employeeSlice";
   import axios from "../../utils/axios";
@@ -29,4 +31,20 @@ import {
         
         
          }
+
+         export const  asyncCurrrntEmployee =  ()=> async (dispatch, getState)=>{
+
+          try {
+            const {data} = await axios.get("/api/employee/home" )
+            dispatch( currrentEmployee(data))
+          } catch (error) {
+            console.log(error);
+          }
+          
+          
+          
+           }
+        
+
+
          

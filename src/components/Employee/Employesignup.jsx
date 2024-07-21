@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Nav from '../Nav'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Login from '../Login'
 import { useDispatch } from 'react-redux'
 import { EmployeeSignUp } from '../../store/Actions/employeeAction'
 
 const Employesignup = ({isLoginpage,setisLoginpage}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 const[ firstname, setfirstname] = useState("")
 const[ lastname, setlastname] = useState("")
 const[ email, setemail] = useState("")
@@ -18,7 +19,7 @@ const[ Organization, setOrganization] = useState("")
         // e.preventDefault()
         // console.log(gender);
 dispatch(EmployeeSignUp({firstname,lastname, contact , gender,  email, password, Organization}))
-
+navigate("/")
     }
   return (
     <>
@@ -62,10 +63,16 @@ dispatch(EmployeeSignUp({firstname,lastname, contact , gender,  email, password,
                     <div className='mt-4 flex gap-10'>
                        <div>
                           <h2 className='font-medium text-zinc-700'>Gender</h2>
-                          <select  onChange={(e)=>setgender(e.target.value)} value={gender} className='py-[8px] cursor-pointer mt-1 w-[25vh] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300 ' name="" id="">
-                          <option  className='py-2 c ' value="male">Male</option>
-                          <option value="female">Female</option>
-                          </select>
+                          <select 
+                  onChange={(e) => setgender(e.target.value)} 
+                  value={gender} 
+                  className='py-[8px] cursor-pointer mt-1 w-[100%] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+                  name="gender"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
                        </div>
                       
                     </div>

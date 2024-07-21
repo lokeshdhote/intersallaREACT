@@ -1,16 +1,20 @@
 import {
     CreateUser,
-   
-    userSignIN,
+   userSignIN,
+   cuurentStudent,
+   removeUser,
+
 
   } from "../Reducers/userSlice";
   import axios from "../../utils/axios";
 
  export const asyncsignup = (user) => async (dispatch, getState) => {
-
+  console.log(user);
     try {
+      console.log(user);
       const res =  await axios.post("/api/student/signup", user);
       dispatch(CreateUser(res));
+      console.log(res);
     } catch (error) {
     //   dispatch(signuperror(error.response.data.message)); // Pass error to the reducer(error.response.data);
     }
@@ -18,8 +22,10 @@ import {
  export const  asyncsignIn =  (user)=> async (dispatch, getState)=>{
 
 try {
+  console.log(user);
   const {data} = await axios.post("/api/student/signin", user)
-  dispatch(userSignIN(data))
+  console.log(data);
+    dispatch(userSignIN(data))
 } catch (error) {
   console.log(error);
 }
@@ -27,3 +33,30 @@ try {
 
 
  }
+ export const  asynccuurentStudent =  ()=> async (dispatch, getState)=>{
+
+  try {
+    const {data} = await axios.post("api/student")
+    console.log(data);
+    dispatch(cuurentStudent(data))
+  } catch (error) {
+    console.log(error);
+  }
+  
+  
+  
+   }
+ export const  asyncRemove =  ()=> async (dispatch, getState)=>{
+
+  try {
+    const {data} = await axios.get("/student/signout")
+    console.log(data);
+    dispatch(removeUser(data))
+  } catch (error) {
+    console.log(error);
+  }
+  
+  
+  
+   }
+ 

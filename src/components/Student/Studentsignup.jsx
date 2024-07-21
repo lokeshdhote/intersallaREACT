@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import {asyncsignup} from '../../store/Actions/userAction.jsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoMdClose } from 'react-icons/io'
 import Login from '../Login'
 import { useDispatch } from 'react-redux'
 
 const Studentsignup = ({isLoginpage,setisLoginpage}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [firstname,setfirstname] = useState("")
   const [lastname,setlastname] = useState("")
   const [gender,setgender] = useState("")
@@ -17,8 +18,9 @@ const Studentsignup = ({isLoginpage,setisLoginpage}) => {
 
    const signForm = (e)=>{
     e.preventDefault()
-    console.log(gender);
+    // console.log(gender);
     dispatch(asyncsignup({email,password ,firstname,lastname,contact,city,gender}));
+    navigate("/")
    }
   const signupuser = async (event) => {
  
@@ -76,10 +78,16 @@ const Studentsignup = ({isLoginpage,setisLoginpage}) => {
                     <div className='mt-4 w-full flex gap-10'>
                        <div className='w-full'>
                           <h2 className='font-medium text-zinc-700'>Gender</h2>
-                          <select onChange={(e)=>setgender(e.target.value)} value={gender} className='py-[8px] cursor-pointer mt-1 w-[100%] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300 ' name="" id="">
-                            <option  className='py-2 c ' value="male">Male</option>
-                            <option value="female">Female</option>
-                          </select>
+                          <select 
+                  onChange={(e) => setgender(e.target.value)} 
+                  value={gender} 
+                  className='py-[8px] cursor-pointer mt-1 w-[100%] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+                  name="gender"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
                        </div>
                        <div className='w-full'>
                           <h2 className='font-medium text-zinc-700'>City</h2>

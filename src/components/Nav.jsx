@@ -8,7 +8,7 @@ const Nav = ({Navleft,Navright}) => {
      <div className='fixed left-0 z-40 top-0 w-full '>
         <div className='w-full  bg-white z-20  border-b-[1.7px] shadow-sm items-center justify-between flex h-[10vh] px-[19vh]'>
             <div className='navleft flex items-center max-sm:justify-between  gap-[6vh]'>
-            <img className='w-[15.5vh] max-sm:absolute max-sm:left-8  object-cover object-center' src="https://upload.wikimedia.org/wikipedia/en/8/8b/Internshala_company_logo.png" alt="" />
+            <Link  to={"/"} ><img className='w-[15.5vh] max-sm:absolute max-sm:left-8  object-cover object-center' src="https://upload.wikimedia.org/wikipedia/en/8/8b/Internshala_company_logo.png" alt="" /></Link>
             <Link onClick={()=>setpopup((prev)=>!prev)} className='bg-[#00A5EC] absolute px-3 text-white font-medium py-2 rounded-md right-10 lg:hidden'>Register</Link>
             <div className='max-sm:hidden'>
             {Navright}

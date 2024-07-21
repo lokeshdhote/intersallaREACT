@@ -13,6 +13,7 @@ import Swiperscreen from './partials/Swiperscreen'
 
 
 const Home = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
+    console.log(isLoginpage);
   return (
     <>
         <Searchbar toggle={issearchbar} settoggle={setsearchbar}></Searchbar>

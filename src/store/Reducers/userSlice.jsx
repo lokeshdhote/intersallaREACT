@@ -10,11 +10,13 @@ export const userSlice = createSlice({
   reducers: {
     CreateUser: (state, action) => {
         state.user = action.payload;
+        state.isAuth = true
         
     },
     
     userSignIN: (state, action) => {
-      state.user = action.payload;
+      state.loginuser = action.payload;
+      state.isAuth = true
   },
     removeUser: (state, action) => {
         state.user = null;
@@ -27,14 +29,17 @@ export const userSlice = createSlice({
     signinerror: (state, action) => {
         state.error = action.payload; 
     },
+    cuurentStudent:(state, action) => {
+      state.CuurentUser = action.payload;
+      state.isAuth = true
+
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-        serializableCheck: false,
-    }),
+  },
+ 
+   
 })
 
 // Action creators are generated for each case reducer function
-export const {CreateUser,removeUser,signinerror,signuperror,userSignIN} = userSlice.actions
+export const {CreateUser,removeUser,signinerror,signuperror,userSignIN,cuurentStudent ,} = userSlice.actions
 
 export default userSlice.reducer

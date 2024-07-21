@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Nav from './components/Nav'
 import Studentsignup from './components/Student/Studentsignup'
@@ -14,19 +14,42 @@ import '../public/stylesheets/styles.css'
 import InternshipDetail from './components/Student/InternshipDetail'
 import Jobdetail from './components/Student/Jobdetail'
 import PostInternship from './components/Employee/PostInternship'
+import { useDispatch, useSelector } from 'react-redux'
+import { asyncCurrrntEmployee } from './store/Actions/employeeAction'
+import { asynccuurentStudent } from './store/Actions/userAction'
+import { currrentEmployee } from './store/Reducers/employeeSlice'
+import Login from './components/Login'
 const App = () => {
+  const dispatch = useDispatch()
+const {cuerentEmployee} = useSelector((state)=>state.employee)
+const {CuurentUser} = useSelector((state)=>state.user)
+const {isAuth} = useSelector((state)=>state.user)
+console.log(isAuth);
   const [issearchbar,setsearchbar] = useState(false)
   const [isLoginpage,setisLoginpage] = useState(false)
 
+  // console.log(isLoginpage);
+  useEffect(()=>{
+dispatch(asyncCurrrntEmployee())
+dispatch(asynccuurentStudent())
+// setisLoginpage(CuurentUser  || cuerentEmployee)
+// setsearchbar(isLoginpage ?  true : false)
+  },[])
+
+
+
   return (
+
     <>
      <div className='hide-scrollbar'>
-          <Nav Navleft={<Navlogin setlogin={setisLoginpage}  setsearchbar={setsearchbar} />} Navright={<Studentnav  />}/>
-          <Bottomnav/>
+     <Nav Navleft={<Navlogin setlogin={setisLoginpage}  setsearchbar={setsearchbar} />} Navright={<Studentnav  />}/>
+     <Bottomnav/>
 
 
           <Routes>
-              <Route path='/' element={<Home setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} issearchbar={issearchbar} setsearchbar={setsearchbar} />} ></Route>
+            
+          
+              <Route path='/' element={<Home setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} issearchbar={issearchbar} setsearchbar={setsearchbar} />} >  </Route>
               <Route path='/register/student' element={<Studentsignup setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} />} ></Route>
               <Route path='/student/resume' element={<Resume/>} ></Route>
               <Route path='/register/employee' element={<Employesignup setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} />} ></Route>
