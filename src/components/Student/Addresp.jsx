@@ -1,19 +1,22 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddresponsibility } from "../../store/Actions/resumeAction";
 
 
 export default function Addresp(props) {
   
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
+  const [Description, setDescription] = useState("");
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  console.log(Description);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    disptach(Asyncaddresponsibility({Description}))
+   
  
   };
 
@@ -43,8 +46,9 @@ export default function Addresp(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[30vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
+                        value={Description}
                         placeholder="eg. AddDescription"
                         id=""
                         >

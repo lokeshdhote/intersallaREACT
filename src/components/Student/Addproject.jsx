@@ -1,19 +1,23 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddproject } from "../../store/Actions/resumeAction";
 
 
 export default function Addproject(props) {
   
-  const [formData, setFormData] = useState("");
+    const dispatch =useDispatch()
+  const [title, settitle] = useState("");
+ 
+  const [Startdate, setStartdate] = useState("");
+  const [enddate, setenddate] = useState("");
+  const [Description, setDescription] = useState("");
 
-
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(Asyncaddproject({title,Startdate,enddate,Description}))
+ 
  
   };
 
@@ -41,8 +45,9 @@ export default function Addproject(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={title}
+                        onChange={(e)=>settitle(e.target.value)}
+                        name="title"
                         placeholder="eg. Analytics"
                         id=""
                         />
@@ -55,8 +60,9 @@ export default function Addproject(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            name="Startdate"
+                            value={Startdate}
+                            onChange={(e)=>setStartdate(e.target.value)}
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -68,8 +74,9 @@ export default function Addproject(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                            name="enddate"
+                            value={enddate}
+                            onChange={(e)=>setenddate(e.target.value)}
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -83,8 +90,9 @@ export default function Addproject(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[19vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Description}
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

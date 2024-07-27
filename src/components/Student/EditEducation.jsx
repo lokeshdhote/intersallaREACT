@@ -1,36 +1,34 @@
 import { RiCloseLine, RiPencilLine, RiUploadCloudLine } from "@remixicon/react";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AsynceditEduction } from "../../store/Actions/resumeAction";
+import { useParams } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 // import { EditEducation, Resume } from "../store/Actions/resumeActions";
 // import { update } from "../store/Actions/userActions";
 
 export default function Editeducation(props) {
-  // const dispatch = useDispatch();
-  // const resume = useSelector((state) => state.resume.data);
-  const index = props.index;
-  // //(resume);
-  // //(index);
-  // //(resume.resume.education[index]);
-  // const [formData, setFormData] = useState(resume.resume.education[index]);
-  // //(formData);
-  // useEffect(() => {
-  //   dispatch(Resume());
-  // }, [dispatch]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  
+  const dispatch = useDispatch();
+  const {resume} = useSelector((state) => state.resume);
+  
+
+const data = resume.education[0]
+
+  const [organization ,setorganization] = useState(data?.organization || "")
+const [startyear ,setstartyear] = useState(data?.startyear || "")
+const [endyear ,setendyear] = useState(data?.endyear || "")
+const [degree ,setdegree] = useState(data?.degree || "")
+const [branch ,setbranch] = useState(data?.branch ||"" )
+const [grade ,setgrade] = useState(data?.grade || "")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   await dispatch(EditEducation(formData, formData.id)); // Dispatch the update action
-    //   // Optionally, you can fetch the updated data again after successful update
-    //   dispatch(Resume());
-    //   props.onClose();
-    // } catch (error) {
-    //   //(error.response.data);
-    // }
+ 
+    dispatch(AsynceditEduction(data.id,{organization,startyear,endyear,degree,branch,grade}))
+  
+  
   };
 
   
@@ -46,7 +44,7 @@ export default function Editeducation(props) {
               color="#1c1c1c9d" // set custom `width` and `height`
             />
             <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
-              <h1>Add Education</h1>
+              <h1>Edit Education</h1>
             </div>
             <form action="" onSubmit={handleSubmit}>
               <div className="w-full">
@@ -56,8 +54,9 @@ export default function Editeducation(props) {
                 <input
                   className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                   type="text"
-                  onChange={handleChange}
+                  onChange={(e)=> setorganization(e.target.value)}
                   name="organization"
+                  value={organization}
                   placeholder="eg. Hindu college"
                   id=""
                 />
@@ -70,7 +69,8 @@ export default function Editeducation(props) {
                   <input
                     className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
-                    onChange={handleChange}
+                    onChange={(e)=> setstartyear(e.target.value)}
+                    value={startyear}
                     name="startyear"
                     id=""
                     placeholder="2020"
@@ -83,10 +83,11 @@ export default function Editeducation(props) {
                   <input
                     className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
-                    onChange={handleChange}
+                    onChange={(e)=> setendyear(e.target.value)}
+value={endyear}
                     name="endyear"
                     id=""
-                    placeholder="2024"
+                  
                   />{" "}
                 </div>
               </div>
@@ -101,7 +102,8 @@ export default function Editeducation(props) {
                     type="text"
                     name="degree"
                     id=""
-                    onChange={handleChange}
+                    onChange={(e)=> setdegree(e.target.value)}
+                    value={degree}
                     placeholder="Btech,Mtech,etc"
                   />
                 </div>
@@ -113,7 +115,8 @@ export default function Editeducation(props) {
                     className="w-[90%] pl-[2vh]  h-[5vh] text-[2vh] outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
                     name="branch"
-                    onChange={handleChange}
+                    value={branch}
+                    onChange={(e)=> setbranch(e.target.value)}
                     id=""
                     placeholder="IT, AIML, CSE , etc."
                   />
@@ -126,7 +129,8 @@ export default function Editeducation(props) {
                 <input
                   className=" lowercase  w-[90%] pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                   type="text"
-                  onChange={handleChange}
+                  value={grade}
+                  onChange={(e)=> setgrade(e.target.value)}
                   name="grade"
                   id=""
                   placeholder="7.5 or 70%"

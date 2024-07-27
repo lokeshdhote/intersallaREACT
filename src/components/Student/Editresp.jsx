@@ -1,23 +1,31 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditresponsibility } from "../../store/Actions/resumeAction";
 
 
 export default function Editresp(props) {
-  
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
+
+  const {resume} = useSelector((state) => state.resume);
+
+  const data = resume?.responsibilities[0]
+  console.log(data);
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [Description, setDescription] = useState(data?.Description || "");
+
+console.log(Description);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    disptach(Asynceditresponsibility(data.id,{Description}))
+    
  
   };
 
-  
   return (
     <>
       <>
@@ -31,7 +39,7 @@ export default function Editresp(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-xl font-bold">
-                    <h1>Position of responsibility</h1>
+                    <h1> Edit Position of responsibility</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     
@@ -42,8 +50,9 @@ export default function Editresp(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[30vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
+                        value={Description}
                         placeholder="eg. AddDescription"
                         id=""
                         >

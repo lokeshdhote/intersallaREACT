@@ -1,20 +1,28 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddjob } from "../../store/Actions/resumeAction";
 
 
 export default function Addjob(props) {
-  
-  const [formData, setFormData] = useState("");
+      
+    const dispatch =useDispatch()
+
+  const [organization, setorganization] = useState("");
+  const [Designation, setDesignation] = useState("");
+  const [Profile, setProfile] = useState("");
+  const [Location, setLocation] = useState("");
+  const [Startdate, setStartdate] = useState("");
+  const [enddate, setenddate] = useState("");
+  const [Description, setDescription] = useState("");
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
  
+  const handleForm= async (e) => {
+    e.preventDefault();
+    dispatch(Asyncaddjob({Description,Designation,Profile,Location,enddate,Startdate,organization}))
+    
   };
 
   
@@ -33,7 +41,7 @@ export default function Addjob(props) {
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
                     <h1>Add job</h1>
                     </div>
-                    <form action="" onSubmit={handleSubmit}>
+                    <form action="" onSubmit={handleForm}>
                     <div className="w-full">
                         <h1 className=" mt-16 text-base font-semibold mb-2 text-[#272727c1]">
                         Designation
@@ -41,8 +49,9 @@ export default function Addjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Designation}
+                        onChange={(e)=>setDesignation(e.target.value)}
+                        name="Designation"
                         placeholder="eg. software Engineer"
                         id=""
                         />
@@ -54,8 +63,8 @@ export default function Addjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Profile}
+                        onChange={(e)=>setProfile(e.target.value)}
                         placeholder="eg. operations"
                         id=""
                         />
@@ -67,7 +76,8 @@ export default function Addjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
+                        value={organization}
+                        onChange={(e)=>setorganization(e.target.value)}
                         name="organization"
                         placeholder="eg. internshala"
                         id=""
@@ -80,8 +90,9 @@ export default function Addjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Location}
+                        onChange={(e)=>setLocation(e.target.value)}
+                        name="location"
                         placeholder="eg. Mumbai"
                         id=""
                         />
@@ -94,8 +105,9 @@ export default function Addjob(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            name="Startdate"
+                            value={Startdate}
+                            onChange={(e)=>setStartdate(e.target.value)}
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -107,8 +119,9 @@ export default function Addjob(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                            name="enddate"
+                            value={enddate}
+                            onChange={(e)=>setenddate(e.target.value)}
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -122,8 +135,9 @@ export default function Addjob(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[15vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Description}
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

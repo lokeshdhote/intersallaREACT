@@ -1,19 +1,21 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditaccomplishment } from "../../store/Actions/resumeAction";
 
 
 export default function Editaccom(props) {
-  
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
 
+  const {resume} = useSelector((state) => state.resume);
 
+const data = resume.accomplishments[0]
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
+  const [ Additionaldetails, setAdditionaldetails] = useState(data?.Additionaldetails ||"")
+  console.log(Additionaldetails);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    disptach(Asynceditaccomplishment(data.id, {Additionaldetails}))
  
   };
 
@@ -31,7 +33,7 @@ export default function Editaccom(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-xl font-bold">
-                    <h1>Additional details</h1>
+                    <h1> Edit Additional details</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     
@@ -39,8 +41,9 @@ export default function Editaccom(props) {
                         <textarea
                         className="w-full pl-[2vh] mt-3 h-[30vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setAdditionaldetails(e.target.value)}
+                        name="Additionaldetails"
+                        value={Additionaldetails}
                         placeholder="eg. Addaccomplishments"
                         id=""
                         >

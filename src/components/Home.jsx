@@ -13,7 +13,7 @@ import Swiperscreen from './partials/Swiperscreen'
 
 
 const Home = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
-    console.log(isLoginpage);
+    console.log(isLoginpage,issearchbar);
   return (
     <>
         <Searchbar toggle={issearchbar} settoggle={setsearchbar}></Searchbar>
@@ -27,7 +27,7 @@ const Home = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
                         <input onClick={()=>setsearchbar((prev)=>!prev)}  placeholder='Search here...' className='w-[96%] h-[6vh] px-9 focus:border-[#00A5EC] outline-none rounded-md border-zinc-300 border-[0.1px]' type="text" />
                     </form>
                 </div>
-                <h2 className=' mt-[2vh] font-bold text-[3.5vh] text-[#333333] lg:text-center lg:text-5xl'>Make your dream career a  reality</h2>
+                <h2 className=' mt-[3vh] font-bold text-[3.5vh] text-[#333333] lg:text-center lg:text-5xl'>Make your dream career a  reality</h2>
                 <h2 className=' mt-[3vh] font-medium text-[3vh] text-[#333333] lg:text-center lg:text-3xl'>Trending on Internshala 🔥</h2>
                 <div className='swiperdiv ml-[-5%] w-[100vw] left-0  h-[30vh] py-2 mt-5  lg:h-[40vh] lg:m-auto lg:w-[79vw] lg:mt-3'>
                     <Responsiveswiper/>

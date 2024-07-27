@@ -15,7 +15,9 @@ export const userSlice = createSlice({
     },
     
     userSignIN: (state, action) => {
-      state.loginuser = action.payload;
+// console.log(action.payload);
+      state.user = action.payload;
+      console.log(state.user);
       state.isAuth = true
   },
     removeUser: (state, action) => {
@@ -30,8 +32,10 @@ export const userSlice = createSlice({
         state.error = action.payload; 
     },
     cuurentStudent:(state, action) => {
-      state.CuurentUser = action.payload;
-      state.isAuth = true
+      state.user = action.payload;
+      
+      console.log(action.payload);
+      state.isAuth=state.user.email?  true : false
 
   },
   },

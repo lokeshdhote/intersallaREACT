@@ -1,18 +1,26 @@
 import { RiCloseLine } from "@remixicon/react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AsyncaddEduction } from "../../store/Actions/resumeAction";
+import { useNavigate } from "react-router-dom";
 
 
 export default function education(props) {
-  
-  const [formData, setFormData] = useState("");
+  const dispatch = useDispatch()
+const naviagate =useNavigate()
+
+const [organization ,setorganization] = useState("")
+const [startyear ,setstartyear] = useState("")
+const [endyear ,setendyear] = useState("")
+const [degree ,setdegree] = useState("")
+const [branch ,setbranch] = useState("")
+const [grade ,setgrade] = useState("")
 
 
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(AsyncaddEduction({organization,startyear,endyear,degree,branch,grade}))
+  
  
   };
 
@@ -39,8 +47,9 @@ export default function education(props) {
                 <input
                   className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                   type="text"
-                  onChange={handleChange}
+                  onChange={(e)=> setorganization(e.target.value)}
                   name="organization"
+                  value={organization}
                   placeholder="eg. Hindu college"
                   id=""
                 />
@@ -51,9 +60,10 @@ export default function education(props) {
                     Start Year
                   </h1>
                   <input
+                  value={startyear}
                     className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
-                    onChange={handleChange}
+                    onChange={(e)=> setstartyear(e.target.value)}
                     name="startyear"
                     id=""
                     placeholder="2020"
@@ -66,7 +76,8 @@ export default function education(props) {
                   <input
                     className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
-                    onChange={handleChange}
+                    value={endyear}
+                    onChange={(e)=> setendyear(e.target.value)}
                     name="endyear"
                     id=""
                     placeholder="2024"
@@ -80,11 +91,12 @@ export default function education(props) {
                     Degree
                   </h1>
                   <input
+                  value={degree}
                     className="w-[90%] pl-[2vh] h-[5vh] text-[2vh] outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
                     name="degree"
                     id=""
-                    onChange={handleChange}
+                    onChange={(e)=> setdegree(e.target.value)}
                     placeholder="Btech,Mtech,etc"
                   />
                 </div>
@@ -96,7 +108,8 @@ export default function education(props) {
                     className="w-[90%] pl-[2vh]  h-[5vh] text-[2vh] outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                     type="text"
                     name="branch"
-                    onChange={handleChange}
+                    value={branch}
+                    onChange={(e)=> setbranch(e.target.value)}
                     id=""
                     placeholder="IT, AIML, CSE , etc."
                   />
@@ -109,7 +122,8 @@ export default function education(props) {
                 <input
                   className=" lowercase  w-[90%] pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                   type="text"
-                  onChange={handleChange}
+                  value={grade}
+                  onChange={(e)=> setgrade(e.target.value)}
                   name="grade"
                   id=""
                   placeholder="7.5 or 70%"

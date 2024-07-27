@@ -1,21 +1,26 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditskill } from "../../store/Actions/resumeAction";
 
 
 export default function Editskill(props) {
-  
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
+
+  const {resume} = useSelector((state) => state.resume);
+
+    const data = resume.skills[0]
 
 
+const [skill ,setskill] = useState(data?.skill || "")
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  disptach(Asynceditskill(data.id,{skill}))
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
- 
-  };
+
+};
+
 
   
   return (
@@ -31,7 +36,7 @@ export default function Editskill(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-xl font-bold">
-                    <h1>Skills</h1>
+                    <h1>Edit Skills</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     
@@ -42,8 +47,9 @@ export default function Editskill(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setskill(e.target.value)}
+                        name="skill"
+                        value={skill}
                         placeholder="eg. Add skill"
                         id=""
                         />

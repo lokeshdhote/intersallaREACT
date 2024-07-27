@@ -1,19 +1,30 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditjob } from "../../store/Actions/resumeAction";
 
 
 export default function Editjob(props) {
-  
-  const [formData, setFormData] = useState("");
+const dispatch = useDispatch()
+    const {resume} = useSelector((state) => state.resume);
+
+    const data = resume.job[0]
+
+    const [organization, setorganization] = useState(data?.organization || "");
+  const [Designation, setDesignation] = useState( data?.Designation  || "");
+  const [Profile, setProfile] = useState( data?.Profile  ||"");
+  const [Location, setLocation] = useState( data?.Location  || "");
+  const [Startdate, setStartdate] = useState( data?.Startdate  || "");
+  const [enddate, setenddate] = useState( data?.enddate  || "");
+  const [Description, setDescription] = useState( data?.Description  || "");
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+ 
+  const handleForm= async (e) => {
     e.preventDefault();
+    dispatch(Asynceditjob(data.id, {Description,Designation,Profile,Location,enddate,Startdate,organization}))
+   
  
   };
 
@@ -31,9 +42,9 @@ export default function Editjob(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
-                    <h1>Add job</h1>
+                    <h1>Edit job</h1>
                     </div>
-                    <form action="" onSubmit={handleSubmit}>
+                    <form action="" onSubmit={handleForm}>
                     <div className="w-full">
                         <h1 className=" mt-16 text-base font-semibold mb-2 text-[#272727c1]">
                         Designation
@@ -41,8 +52,11 @@ export default function Editjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        
+                        value={Designation}
+                        onChange={(e)=>setDesignation(e.target.value)}
+                        name="Designation"
+                        
                         placeholder="eg. software Engineer"
                         id=""
                         />
@@ -54,8 +68,9 @@ export default function Editjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        name="Profile"
+                        value={Profile}
+                        onChange={(e)=>setProfile(e.target.value)}
                         placeholder="eg. operations"
                         id=""
                         />
@@ -67,7 +82,8 @@ export default function Editjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
+                        value={organization}
+                        onChange={(e)=>setorganization(e.target.value)}
                         name="organization"
                         placeholder="eg. internshala"
                         id=""
@@ -80,8 +96,9 @@ export default function Editjob(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Location}
+                        onChange={(e)=>setLocation(e.target.value)}
+                        name="location"
                         placeholder="eg. Mumbai"
                         id=""
                         />
@@ -94,8 +111,9 @@ export default function Editjob(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            value={Startdate}
+                            onChange={(e)=>setStartdate(e.target.value)}
+                            name="Startdate"
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -107,8 +125,9 @@ export default function Editjob(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                            value={enddate}
+                            onChange={(e)=>setenddate(e.target.value)}
+                            name="enddate"
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -122,8 +141,9 @@ export default function Editjob(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[15vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Description}
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

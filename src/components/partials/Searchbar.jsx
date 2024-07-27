@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 
 const Searchbar = ({toggle,settoggle}) => {
-
+console.log(toggle);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('internships');
 

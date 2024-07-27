@@ -1,20 +1,27 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditcourse } from "../../store/Actions/resumeAction";
 
 
 export default function Editcourse(props) {
+  const disptach = useDispatch()
+
+    const {resume} = useSelector((state) => state.resume);
+
+    const data = resume.courses[0]
+    
+    const [organization, setorganization] = useState(data?.organization || "");
+    const [Trainingprogram, setTrainingprogram] = useState(data?.Trainingprogram || "");
+    const [Location, setLocation] = useState(data?.Location || "");
+    const [Startdate, setStartdate] = useState(data?.Startdate || "");
+    const [enddate, setenddate] = useState(data?.enddate || "");
+    const [Description, setDescription] = useState(data?.Description || "");
   
-  const [formData, setFormData] = useState("");
-
-
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+    disptach(Asynceditcourse(data.id,{ organization,Startdate,enddate,Trainingprogram,Location,Description}))
+    // 
   };
 
   
@@ -31,7 +38,7 @@ export default function Editcourse(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
-                    <h1>Training details</h1>
+                    <h1>Edit Training details</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     <div className="w-full">
@@ -41,8 +48,9 @@ export default function Editcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Trainingprogram}
+                        onChange={(e)=>setTrainingprogram(e.target.value)}
+                        name="Trainingprogram"
                         placeholder="eg. Analytics"
                         id=""
                         />
@@ -54,8 +62,9 @@ export default function Editcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
+                        onChange={(e)=>setorganization(e.target.value)}
                         name="organization"
+                        value={organization}
                         placeholder="eg. operations"
                         id=""
                         />
@@ -68,8 +77,9 @@ export default function Editcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setLocation(e.target.value)}
+                        name="Location"
+                        value={Location}
                         placeholder="eg. Mumbai"
                         id=""
                         />
@@ -82,8 +92,9 @@ export default function Editcourse(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            onChange={(e)=>setStartdate(e.target.value)}
+                            name="Startdate"
+                            value={Startdate}
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -95,8 +106,9 @@ export default function Editcourse(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                             onChange={(e)=>setenddate(e.target.value)}
+                            name="enddate"
+                        value={enddate} 
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -110,8 +122,9 @@ export default function Editcourse(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[19vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setDescription(e.target.value)}
+                        value={Description}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

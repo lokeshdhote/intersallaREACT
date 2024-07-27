@@ -1,20 +1,24 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddlink } from "../../store/Actions/resumeAction";
 
 
 export default function Addlink(props) {
-  
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
+
+  const [Blog, setBlog] = useState("");
+  const [GitHub, setGitHub ] = useState("");
+  const [Public, setPublic] = useState("");
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+    disptach(Asyncaddlink({Blog,GitHub,Public}))
+
   };
 
   
@@ -41,8 +45,9 @@ export default function Addlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setBlog(e.target.value)}
+                        name="blog"
+                        value={Blog}
                         placeholder="eg. https://example.com"
                         id=""
                         />
@@ -54,8 +59,9 @@ export default function Addlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={GitHub}
+                        onChange={(e)=>setGitHub(e.target.value)}
+                        name="GitHub"
                         placeholder="eg. https://example.com"
                         id=""
                         />
@@ -68,8 +74,9 @@ export default function Addlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setPublic(e.target.value)}
+                        name="public"
+                        value={Public}
                         placeholder="eg. https://example.com/organization"
                         id=""
                         />

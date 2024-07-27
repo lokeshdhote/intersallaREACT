@@ -1,19 +1,18 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddskill } from "../../store/Actions/resumeAction";
 
 
 export default function Addskill(props) {
-  
-  const [formData, setFormData] = useState("");
-
-
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const disptach = useDispatch()
+const [skill ,setskill] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    disptach(Asyncaddskill({skill})
+    )
+   
  
   };
 
@@ -42,8 +41,9 @@ export default function Addskill(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setskill(e.target.value)}
+                        name="skill"
+                        value={skill}
                         placeholder="eg. Add skill"
                         id=""
                         />

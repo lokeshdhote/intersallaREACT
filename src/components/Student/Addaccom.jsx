@@ -1,19 +1,17 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddaccomplishment } from "../../store/Actions/resumeAction";
 
 
 export default function Addaccom(props) {
-  
-  const [formData, setFormData] = useState("");
-
-
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
+  const dispatch =useDispatch()
+ const [ Additionaldetails, setAdditionaldetails] = useState("")
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(Asyncaddaccomplishment( {Additionaldetails}))
+
+   
  
   };
 
@@ -39,8 +37,9 @@ export default function Addaccom(props) {
                         <textarea
                         className="w-full pl-[2vh] mt-3 h-[30vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setAdditionaldetails(e.target.value)}
+                        name="Additionaldetails"
+                        value={Additionaldetails}
                         placeholder="eg. Addaccomplishments"
                         id=""
                         >

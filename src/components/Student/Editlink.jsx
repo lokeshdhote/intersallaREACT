@@ -1,20 +1,28 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditlink } from "../../store/Actions/resumeAction";
 
 
 export default function Editlink(props) {
-  
-  const [formData, setFormData] = useState("");
+  const disptach = useDispatch()
+
+  const {resume} = useSelector((state) => state.resume);
+
+  const data = resume.link[0]
+
+  const [Blog, setBlog] = useState(data?.Blog || "");
+  const [GitHub, setGitHub ] = useState(data?.GitHub || "");
+  const [Public, setPublic] = useState(data?.Public || "");
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+    disptach(Asynceditlink(data.id, {Blog,GitHub,Public}))
+
   };
 
   
@@ -31,7 +39,7 @@ export default function Editlink(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
-                    <h1>Work samples</h1>
+                    <h1>Edit Work samples</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     <div className="w-full">
@@ -41,8 +49,9 @@ export default function Editlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setBlog(e.target.value)}
+                        name="blog"
+                        value={Blog}
                         placeholder="eg. https://example.com"
                         id=""
                         />
@@ -54,8 +63,9 @@ export default function Editlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={GitHub}
+                        onChange={(e)=>setGitHub(e.target.value)}
+                        name="GitHub"
                         placeholder="eg. https://example.com"
                         id=""
                         />
@@ -68,8 +78,9 @@ export default function Editlink(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setPublic(e.target.value)}
+                        name="public"
+                        value={Public}
                         placeholder="eg. https://example.com/organization"
                         id=""
                         />

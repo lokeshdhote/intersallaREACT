@@ -1,19 +1,23 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Asyncaddcourse } from "../../store/Actions/resumeAction";
 
 
 export default function Addcourse(props) {
   
-  const [formData, setFormData] = useState("");
-
-
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
+    const dispatch =useDispatch()
+    const [organization, setorganization] = useState("");
+    const [Trainingprogram, setTrainingprogram] = useState("");
+    const [Location, setLocation] = useState("");
+    const [Startdate, setStartdate] = useState("");
+    const [enddate, setenddate] = useState("");
+    const [Description, setDescription] = useState("");
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(Asyncaddcourse({ organization,Startdate,enddate,Trainingprogram,Location,Description}))
+     
  
   };
 
@@ -41,8 +45,9 @@ export default function Addcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Trainingprogram}
+                        onChange={(e)=>setTrainingprogram(e.target.value)}
+                        name="Trainingprogram"
                         placeholder="eg. Analytics"
                         id=""
                         />
@@ -54,8 +59,9 @@ export default function Addcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
+                        onChange={(e)=>setorganization(e.target.value)}
                         name="organization"
+                        value={organization}
                         placeholder="eg. operations"
                         id=""
                         />
@@ -68,8 +74,9 @@ export default function Addcourse(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setLocation(e.target.value)}
+                        name="Location"
+                        value={Location}
                         placeholder="eg. Mumbai"
                         id=""
                         />
@@ -82,8 +89,9 @@ export default function Addcourse(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            onChange={(e)=>setStartdate(e.target.value)}
+                            name="Startdate"
+                            value={Startdate}
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -95,8 +103,9 @@ export default function Addcourse(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                            value={enddate}
+                            onChange={(e)=>setenddate(e.target.value)}
+                            name="enddate"
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -110,8 +119,9 @@ export default function Addcourse(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[19vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        onChange={(e)=>setDescription(e.target.value)}
+                        value={Description}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

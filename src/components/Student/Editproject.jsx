@@ -1,19 +1,28 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Asynceditproject } from "../../store/Actions/resumeAction";
 
 
 export default function Editproject(props) {
-  
-  const [formData, setFormData] = useState("");
+    const disptach = useDispatch()
+ 
+    const {resume} = useSelector((state) => state.resume);
 
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    const data = resume.projects[0]
+
+  const [title, settitle] = useState(data?.title || "");
+ 
+  const [Startdate, setStartdate] = useState(data?.Startdate || "");
+  const [enddate, setenddate] = useState(data?.enddate || "");
+  const [Description, setDescription] = useState(data?.Description || "");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    disptach(Asynceditproject(data.id,{title,Startdate,enddate,Description}))
  
   };
 
@@ -31,7 +40,7 @@ export default function Editproject(props) {
                     color="#1c1c1c9d" // set custom `width` and `height`
                     />
                     <div className=" flex items-center justify-center text-[#272727e4]  w-full h-5 text-3xl font-bold">
-                    <h1>Project details</h1>
+                    <h1>Edit Project details</h1>
                     </div>
                     <form action="" onSubmit={handleSubmit}>
                     <div className="w-full">
@@ -41,8 +50,9 @@ export default function Editproject(props) {
                         <input
                         className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={title}
+                        onChange={(e)=>settitle(e.target.value)}
+                        name="title"
                         placeholder="eg. Analytics"
                         id=""
                         />
@@ -55,8 +65,9 @@ export default function Editproject(props) {
                         <input
                             className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="startyear"
+                            name="Startdate"
+                            value={Startdate}
+                            onChange={(e)=>setStartdate(e.target.value)}
                             id=""
                             placeholder="2020"
                         />{" "}
@@ -68,8 +79,9 @@ export default function Editproject(props) {
                         <input
                             className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                             type="date"
-                            onChange={handleChange}
-                            name="endyear"
+                            name="enddate"
+                            value={enddate}
+                            onChange={(e)=>setenddate(e.target.value)}
                             id=""
                             placeholder="2024"
                         />{" "}
@@ -83,8 +95,9 @@ export default function Editproject(props) {
                         <textarea
                         className="w-full pl-[2vh]  h-[19vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
                         type="text"
-                        onChange={handleChange}
-                        name="organization"
+                        value={Description}
+                        onChange={(e)=>setDescription(e.target.value)}
+                        name="Description"
                         placeholder="eg. AddDescription"
                         id=""
                         >

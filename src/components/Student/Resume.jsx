@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {Link} from 'react-router-dom'
 
 import {
@@ -24,12 +24,31 @@ import Addlink from "./Addlink";
 import Editlink from "./Editlink";
 import Addaccom from "./Addaccom";
 import Editaccom from "./Editaccom";
+import { useDispatch, useSelector } from "react-redux";
+import { Asyncdeleteaccomplishment, Asyncdeletecourse, AsyncdeleteEduction, Asyncdeletejob, Asyncdeletelink, Asyncdeleteproject, Asyncdeleteresponsibility, Asyncdeleteskill, asyncResume } from "../../store/Actions/resumeAction";
+import { asyncchangeAvtar } from "../../store/Actions/userAction";
 
 // import DelEducation from "./DelEducation";
 
 export default function Resumepage() {
-//   const dispatch = useDispatch(); // Get dispatch function
-//   const resume = useSelector((state) => state.resume.data); // Assuming resume details are stored under 'user' in Redux store
+  const dispatch = useDispatch(); // Get dispatch function
+const [avtar,setavtar]= useState("")
+const inputTag=useRef("")
+
+  const{ resume} = useSelector((state) => state.resume);
+  const{ user} = useSelector((state) => state.user);
+
+
+ console.log(avtar);
+
+
+  if(resume){
+    var  {accomplishments,courses,job,link,education,internships,projects,responsibilities,skills} = resume
+
+  }
+ 
+
+  // Assuming resume details are stored under 'user' in Redux store
   // //(resume);
   const [showEditResume, setShowEditResume] = useState(false);
   const [ShowAvatar, setShowAvatar] = useState(false);
@@ -56,10 +75,17 @@ export default function Resumepage() {
 
   const [ShowDelEducation, setShowDelEducation] = useState(false);
 
-//   useEffect(() => {
-//     dispatch(Resume()); // Fetch resume data for student when component mounts
-//   }, [dispatch]);
+  useEffect(() => {
+    dispatch(asyncResume()); // Fetch resume data for student when component mounts
+  }, [dispatch]);
 
+//   const openaddavatar = ()=>{
+//     //avtarchnage
+// inputTag.current.click()
+// console.log(avtar.files.file.name);
+// console.log(avtar?.files.name);
+//     dispatch(asyncchangeAvtar(user.id,avtar))
+//   }
   const handleEditClick = () => {
     setShowEditResume(true); // Show Editresume component when edit is clicked
   };
@@ -211,8 +237,36 @@ export default function Resumepage() {
     setEditingIndex(null); // Reset the index when closing the edit education modal
     setShowEditAccomp(false); // Hide Editresume component when close is clicked
   };
+  //delete fn
 
-  return (
+
+  const Deleteedu=()=>{
+                        {  }
+dispatch(AsyncdeleteEduction(education[0]?.id))
+  }
+const Deleteskill = ()=>{
+  dispatch(Asyncdeleteskill(skills[0]?.id))
+}
+ 
+  // const Deletelink=()=>{
+  //   dispatch( Asyncdeletelink(link[0]?.id))
+  // }
+  const Deletejob=()=>{
+    dispatch(Asyncdeletejob(job[0]?.id) )
+  }
+  const Deletecourse=()=>{
+   dispatch(Asyncdeletecourse(courses[0]?.id) ) 
+  }
+  const Deleteaccom=()=>{
+   dispatch( Asyncdeleteaccomplishment(accomplishments[0]?.id)) 
+  }
+  const Deleteresp=()=>{
+    dispatch( Asyncdeleteresponsibility(responsibilities[0]?.id))
+  }
+  const Deleteproject=()=>{
+    dispatch(Asyncdeleteproject(projects[0]?.id) )
+  }
+  return  resume && (
     <>
       {ShowDropdown && <Dropdown onClose={closedropdown} />}
       {ShowEducation && <Education onClose={closeeducation} />}
@@ -263,29 +317,29 @@ export default function Resumepage() {
           <div className=" w-full flex justify-between pr-[10vh] max-[600px]:pr-0 ">
             <div className="pb-[5vh]">
               <h1 className=" flex gap-[5vh] text-3xl font-semibold   text-[#151515d2]  ">
-                   sjkkl;ksd
+                  {user?.firstname } {user?.lastname }
                 <RiPencilLine
                   size={25}
-                  className="mt-1 cursor-pointer"
+                  className="mt-1 cursor-pointer "
                   onClick={handleEditClick}
                   color="#1c1c1c9d" // set custom `width` and `height`
                 />
               </h1>
               <h1 className="text-base mt-2  text-[#1c1c1c9d]   ">
-                adkas
+              {user?.email }
               </h1>
               <h1 className="text-base mt-2  text-[#1c1c1c9d]   ">
-                adxaj
+              {user?.contact }
               </h1>
               <h1 className="text-base mt-2  text-[#1c1c1c9d]   ">
-                aqahdi
+              {user?.city }
               </h1>
             </div>
             <div className="">
               <div className=" w-[15vh] h-[15vh] border-2 overflow-hidden rounded-full   ">
                 <img
                   className="w-full h-full object-cover "
-                  src={``}
+                  src={user?.avtar.url}
                   alt=""
                 />
               </div>
@@ -293,6 +347,7 @@ export default function Resumepage() {
                 className=" cursor-pointer mt-1 text-[#008BDC]  text-2xl font-medium"
                 // onClick={openaddavatar}
               >
+                {/* <input ref={inputTag} type="file" onChange={(e)=>setavtar(e.target.files[0])} className="hidden" /> */}
                 Edit profile picture
               </div>
             </div>
@@ -306,19 +361,22 @@ export default function Resumepage() {
                     <div className=" w-[80%]  mb-5">
                       <div className="text-[#151515d0] text-[2.5vh] font-semibold ">
                         {/* {item.degree} {item.branch} */}
-                        helo
+                        { education[0]?.degree }
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
                         {/* {item.organization} */}
-                        hyy
+                        { education[0]?.organization }
+                      
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
                         {/* {item.startyear}-{item.endyear} */}
-                        hiee
+                        { education[0]?.startyear } - {education[0]?.endyear}
+                        
+                        
                       </div>
                       <div className="text-[#1515159d]  text-[2vh]  mt-1 text-2xl font-medium">
                         {/* CGPA {item.grade} */}
-                        how
+                        { education[0]?.grade }
                       </div>
                     </div>
                     <div className="flex gap-10">
@@ -330,7 +388,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        onClick={() => opendelducation(1)}
+                        onClick={Deleteedu}
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -353,16 +411,16 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                       <div className="text-[#151515d0] text-[2.5vh] font-semibold ">
-                        helo
+                      { job[0]?.Designation}
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hyy
+                      { job[0]?.Location}
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hiee
+                      { job[0]?.organization }
                       </div>
                       <div className="text-[#1515159d]  text-[2vh]  mt-1 text-2xl font-medium">
-                        how
+                      { job[0]?.Startdate } - {job[0]?.enddate}
                       </div>
                     </div>
                     <div className="flex gap-10">
@@ -374,7 +432,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        // onClick={() => opendeljob(1)}
+                        onClick={Deletejob}
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -406,7 +464,9 @@ export default function Resumepage() {
                     <div className=" w-[80%]  mb-5">
                      
                       <div className="text-[#1515159d]   text-[2vh] font-medium">
-                        hyy
+                      { responsibilities[0]?.Description    }
+                     
+                        
                       </div>
                       
                     </div>
@@ -419,7 +479,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        onClick={() => opendelducation(1)}
+                        onClick={Deleteresp} 
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -442,16 +502,19 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                       <div className="text-[#151515d0] text-[2.5vh] font-semibold ">
-                        helo
+                      { courses[0]?.Trainingprogram } 
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hyy
+                      { courses[0]?.Location} 
+
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hiee
+                      { courses[0]?.organization} 
+
                       </div>
                       <div className="text-[#1515159d]  text-[2vh]  mt-1 text-2xl font-medium">
-                        how
+                      { courses[0]?.Startdate} -   { courses[0]?.enddate}
+
                       </div>
                     </div>
                     <div className="flex gap-10">
@@ -463,7 +526,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        // onClick={() => opendeljob(1)}
+                        onClick={Deletecourse}
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -486,17 +549,16 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                       <div className="text-[#151515d0] text-[2.5vh] font-semibold ">
-                        helo
+                      {projects[0]?.title} 
+                      
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hyy
+                      {projects[0]?.Startdate} - {projects[0]?.enddate} 
                       </div>
                       <div className="text-[#1515159d]  mt-1 text-[2vh] font-medium">
-                        hiee
+                      {projects[0]?.Description} 
                       </div>
-                      <div className="text-[#1515159d]  text-[2vh]  mt-1 text-2xl font-medium">
-                        how
-                      </div>
+                     
                     </div>
                     <div className="flex gap-10">
                       <RiPencilLine
@@ -507,7 +569,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        // onClick={() => opendeljob(1)}
+                        onClick={Deleteproject}  
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -530,8 +592,11 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                      
-                      <div className="text-[#1515159d]   text-[2vh] font-medium">
-                        hyy
+                      <div className="text-[#151515d0] text-[2.5vh] font-semibold">
+                      {skills[0]?.skill} 
+                        
+                        
+
                       </div>
                       
                     </div>
@@ -544,7 +609,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        onClick={() => opendelducation(1)}
+                        onClick={Deleteskill} 
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -567,10 +632,12 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                     <div className="text-[#151515d0] text-[2.5vh] font-semibold ">
-                        helo
+                    {link[0]?.GitHub} 
+
                       </div>
                       <div className="text-[#1515159d]   text-[2vh] font-medium">
-                        hyy
+                      {link[0]?.Blog} 
+
                       </div>
                       
                     </div>
@@ -583,7 +650,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        onClick={() => opendelducation(1)}
+                        // onClick={Deletelink}
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />
@@ -606,7 +673,8 @@ export default function Resumepage() {
                  <div key={1} className="flex">
                     <div className=" w-[80%]  mb-5">
                       <div className="text-[#1515159d]   text-[2vh] font-medium">
-                        hyy
+                  { accomplishments[0]?.Additionaldetails }
+                  
                       </div>
                       
                     </div>
@@ -619,7 +687,7 @@ export default function Resumepage() {
                       />
                       <RiDeleteBin5Line
                         size={20}
-                        onClick={() => opendelducation(1)}
+                        onClick={Deleteaccom}
                         className="mt-1 cursor-pointer"
                         color="#1c1c1c9d" // set custom `width` and `height`
                       />

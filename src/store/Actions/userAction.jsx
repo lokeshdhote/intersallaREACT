@@ -49,14 +49,24 @@ try {
  export const  asyncRemove =  ()=> async (dispatch, getState)=>{
 
   try {
-    const {data} = await axios.get("/student/signout")
+    const {data} = await axios.get("api/student/signout")
     console.log(data);
     dispatch(removeUser(data))
   } catch (error) {
     console.log(error);
   }
-  
-  
-  
    }
+ export const  asyncchangeAvtar =  (id,avtar)=> async (dispatch, getState)=>{
+
+  try {
+    const {data} = await axios.post(`api/student/avtar/${id}`,avtar)
+   
+  
+  } catch (error) {
+    console.log(error);
+  }
+   }
+
+
+
  

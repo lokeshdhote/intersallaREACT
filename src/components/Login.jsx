@@ -11,7 +11,7 @@ const Login = ({ setlogin }) => {
   
   // Selector to get authentication state from Redux store
   const auth = useSelector(state => state.user);
-console.log(auth.isAuth);
+// console.log(auth.isAuth);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [studentLoginForm, setStudentLoginForm] = useState(true);

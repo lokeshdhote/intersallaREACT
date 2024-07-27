@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { CiCalendar, CiFilter, CiLocationOn } from "react-icons/ci";
-import { IoAnalytics } from 'react-icons/io5';
+import { IoAnalytics, IoSearchOutline } from 'react-icons/io5';
 import { PiHouseLineLight, PiMoneyDuotone, PiShoppingBagOpenLight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
-const Jobs = () => {
+import Searchbar from './partials/Searchbar';
+const Jobs = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
     const [selections, setSelections] = useState({
         workFromHome: false,
         partTime: false,
@@ -36,6 +37,14 @@ const Jobs = () => {
       
   return (
     <>
+     <Searchbar toggle={issearchbar} settoggle={setsearchbar}></Searchbar>
+     <div className='search relative mt-2 '>
+                    <form className=' lg:hidden' action="">
+                        <IoSearchOutline className='absolute top-[50%] translate-y-[-50%] scale-[1.5] text-zinc-500 left-3' />
+                        <input onClick={()=>setsearchbar((prev)=>!prev)}  placeholder='Search here...' className='w-[96%] h-[6vh] px-9 focus:border-[#00A5EC] outline-none rounded-md border-zinc-300 border-[0.1px]' type="text" />
+                    </form>
+                </div>
+
       <div className='w-full py-[25%] lg:py-[8%] px-3 bg-[#F8F8F8]  overflow-y-scroll'>
             <div className='w-full  category hide-scrollbar lg:hidden pl-[22%] py-2 flex whitespace-nowrap overflow-x-auto '>
                     <button className='px-3 py-1 ml-2 absolute left-0 border-zinc-400 border rounded-full font-medium text-zinc-700  bg-white flex items-end justify-center gap-1'>Filter <CiFilter className='text-[#008BDC] scale-[1.2]' /></button>

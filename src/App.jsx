@@ -19,12 +19,13 @@ import { asyncCurrrntEmployee } from './store/Actions/employeeAction'
 import { asynccuurentStudent } from './store/Actions/userAction'
 import { currrentEmployee } from './store/Reducers/employeeSlice'
 import Login from './components/Login'
+import Profile from './components/profile'
 const App = () => {
   const dispatch = useDispatch()
 const {cuerentEmployee} = useSelector((state)=>state.employee)
 const {CuurentUser} = useSelector((state)=>state.user)
 const {isAuth} = useSelector((state)=>state.user)
-console.log(isAuth);
+// console.log(isAuth);
   const [issearchbar,setsearchbar] = useState(false)
   const [isLoginpage,setisLoginpage] = useState(false)
 
@@ -53,11 +54,13 @@ dispatch(asynccuurentStudent())
               <Route path='/register/student' element={<Studentsignup setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} />} ></Route>
               <Route path='/student/resume' element={<Resume/>} ></Route>
               <Route path='/register/employee' element={<Employesignup setisLoginpage={setisLoginpage} isLoginpage={isLoginpage} />} ></Route>
-              <Route path='/internships' element={<Interships/>} ></Route>
+              <Route path='/internships' element={<Interships issearchbar={issearchbar} setsearchbar={setsearchbar} />} ></Route>
               <Route path='/internships/details/:id' element={<InternshipDetail/>} ></Route>
-              <Route path='/jobs' element={<Jobs/>} ></Route>
+              <Route path='/jobs' element={<Jobs issearchbar={issearchbar} setsearchbar={setsearchbar}/>} ></Route>
               <Route path='/jobs/details/:id' element={<Jobdetail/>} ></Route>
+
               <Route path='/employee/form' element={<PostInternship/>} ></Route>
+              <Route path='/profile' element={<Profile/>} ></Route>
 
           </Routes>
      </div>
