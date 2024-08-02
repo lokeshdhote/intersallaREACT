@@ -20,6 +20,7 @@ import { asynccuurentStudent } from './store/Actions/userAction'
 import { currrentEmployee } from './store/Reducers/employeeSlice'
 import Login from './components/Login'
 import Profile from './components/profile'
+import Postjob from './components/Employee/Postjob'
 const App = () => {
   const dispatch = useDispatch()
 const {cuerentEmployee} = useSelector((state)=>state.employee)
@@ -58,10 +59,10 @@ dispatch(asynccuurentStudent())
               <Route path='/internships/details/:id' element={<InternshipDetail/>} ></Route>
               <Route path='/jobs' element={<Jobs issearchbar={issearchbar} setsearchbar={setsearchbar}/>} ></Route>
               <Route path='/jobs/details/:id' element={<Jobdetail/>} ></Route>
-
+              <Route path='/job/form' element={<Postjob/>} ></Route>
               <Route path='/employee/form' element={<PostInternship/>} ></Route>
               <Route path='/profile' element={<Profile/>} ></Route>
-
+              {/* <Route path="/internship/create" element={<CreateInternship />} /> */}
           </Routes>
      </div>
    

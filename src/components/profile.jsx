@@ -118,11 +118,11 @@ const handleForm= (e)=>{
             </button>
           </div>
         </div>
-        <div className="text-right">
+        {/* <div className="text-right">
           <button className="py-2 px-4 bg-blue-500 text-white rounded">
             Save
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

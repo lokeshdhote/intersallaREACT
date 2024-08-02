@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiCalendar, CiFilter, CiLocationOn } from "react-icons/ci";
 import { IoAnalytics, IoSearchOutline } from 'react-icons/io5';
 import { PiHouseLineLight, PiMoneyDuotone } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import Searchbar from './partials/Searchbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncReadIntern } from '../store/Actions/employeeAction';
 const Interships = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
     
+const dispatch = useDispatch()
+
+
+    useEffect(()=>{
+        dispatch(asyncReadIntern())
+      },[dispatch])
+        const intern = useSelector((state)=>state.employee.intern.internships)
+        const  intern1 =   useSelector((state)=>state.user.intern)
+        console.log(intern1);
     const [selections, setSelections] = useState({
         workFromHome: false,
         partTime: false,
@@ -54,7 +65,7 @@ const Interships = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
                     <button className='px-3 py-1 ml-2 border-zinc-400 border rounded-full font-medium text-zinc-700'>part Time</button>
                     <button className='px-3 py-1 ml-2 border-zinc-400 border rounded-full font-medium text-zinc-700'>stipend</button>
             </div>
-            <h2 className='text-center font-semibold lg:text-xl'>545 Total internships</h2>
+            <h2 className='text-center font-semibold lg:text-xl'> internships</h2>
             <h2 className='text-gray-500 text-sm mt-3 lg:text-center'>545 Total internships</h2>
             <div className='filtersintern lg:flex lg:items-start lg:justify-center lg:w-[80%] lg:float-end'>
                      <div className='filter max-sm:hidden w-[20%] bg-white h-[75vh] fixed top-[20%] left-[8%] shadow-lg border rounded-md'>
@@ -132,168 +143,48 @@ const Interships = ({isLoginpage,setisLoginpage,issearchbar,setsearchbar}) => {
                          </form>        
                      </div>
                     <div className='internships pt-2 lg:shrink-0     lg:w-[50%]'>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5 lg:rounded-[15px]  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh] lg:text-[2.5vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-1'>
+                        
+                        
+                        { intern?.length > 0 ? (
+    intern.map((intern,index)=>{
+      return(
+         <div key={index}
+         className='border mt-2  p-5 flex-col items-start justify-start py-5 lg:rounded-[15px]  rounded-md shadow-lg bg-white' >
+       <h2 className='font-medium text-[2vh] lg:text-[2.5vh]'>{intern?.title}</h2>
+                                    <div className='companydets w-full flex  flex-col border-b pb-3  '>
+                                    <div className=' w-full flex  flex-colitems-center  pb-3 gap-1 pt-1'>
                                     <div className='w-[100%] text-left py-2 lg:flex lg:items-baseline lg:gap-3'>
-                                        <h3 className='text-[1.6vh] lg:text-[2vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
+                                        <h3 className='text-[1.6vh] lg:text-[2vh] text-zinc-500 font-medium'>{intern?.interntype} - {intern?.interntime}</h3>
                                         <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
                                     </div>
                                         <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden lg:h-[8vh] w-[8vh]'>
                                             <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
                                         </div>
                                     </div>
+                                    <div>
+                                    <h3 className='text-[1.6vh] lg:text-[2vh] text-zinc-500 font-medium'>{intern?.openings} -Openings </h3>
+                                     </div>
+                                     
+                                      
+                                    </div>
+                                
                                     <div className='loc text-zinc-600 pt-5 lg:flex lf lg:gap-3 '>
-                                        <h2 className='text-[15px] lg:text-[1.8vh]   font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <h2 className='text-[15px] lg:text-[1.8vh]  font-medium flex items-center gap-2'><CiLocationOn className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px] lg:text-[1.8vh]   font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px] lg:text-[1.8vh]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
+                                        
+                                        <h2 className='text-[15px] lg:text-[1.8vh]  font-medium flex items-center gap-2'><CiLocationOn className='font-bold scale-[1.2]' /> {intern?.city}</h2>
+                                     
                                     </div>
                                 
                         </div>
-                        
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
-                        <div className='border mt-2  p-5 flex-col items-start justify-start py-5  rounded-md shadow-lg bg-white' >
-                                    <h2 className='font-medium text-[2vh]'>Riteclkssh vish corpratesldlk</h2>
-                                    <div className='companydets w-full flex items-center border-b pb-3 gap-1 pt-3'>
-                                    <div className='w-[100%] text-left py-2 '>
-                                        <h3 className='text-[1.6vh] text-zinc-500 font-medium'>planetsparkcjksjakncnds</h3>
-                                        <button className='px-2 mt-2 border-[#008BDC] border flex items-end text-[13px] text-[#008BDC] gap-2 py-[1px]  rounded-full '> <h2>Actively hiring</h2></button>
-                                    </div>
-                                        <div className='h-[6vh] object-cover object-center rounded-full overflow-hidden w-[8vh]'>
-                                            <img className='object-cover h-full w-full object-center' src="https://internshala-uploads.internshala.com/banner-images/home_new/study_abroad_is-student.png.webp" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className='loc text-zinc-600 pt-5'>
-                                        <h2 className='text-[15px]  font-medium flex items-center gap-2'><PiHouseLineLight className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        <div className='flex items-center gap-2'>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><PiMoneyDuotone className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                            <h2 className='text-[15px]  font-medium flex my-2 items-center gap-2'><CiCalendar className='font-bold scale-[1.2]' /> Delhi,ahdkknk</h2>
-                                        </div>
-                                    </div>
-                                
-                        </div>
+      )
+    })
+     ):(
+    <h1 className="mt-[2vw] mb-[1vw] text-center text-white text-3xl">
+                            No job here!
+                        </h1>
+     )
+    
+     }
+       
 
                     </div>
             </div>

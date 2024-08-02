@@ -1,195 +1,234 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { asyncCreateJob } from '../../store/Actions/employeeAction';
 
 const Postjob = () => {
-    const [selections, setSelections] = useState({
-        workFromHome: false,
-        partTime: false,
-        fullTime: false,
-      });
-    
-      const handleChange = (event) => {
-        const { name, checked } = event.target;
-        setSelections((prevSelections) => ({
-          ...prevSelections,
-          [name]: checked,
-        }));
-      };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const [title, settitle] = useState("");
+  const [skill, setSkill] = useState("");
+  const [experience, setexperience] = useState("");
+  const [jobtype, setJobtype] = useState("");
+  const [jobtime, setJobTime] = useState("");
+  const [openings, setOpenings] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [responsibility, setResponsibility] = useState("");
+  const [duration, setDuration] = useState("");
+  const [salary, setsalary] = useState("");
+  const [perks, setPerks] = useState([]);
+  const [description, setdescription] = useState("");
+const [city ,setcity]= useState("")
+  const formhandle = (e) => {
+    e.preventDefault();
+    dispatch(asyncCreateJob({
+      title,
+      skill,
+      responsibility,
+      to,
+      from,
+      openings,
+      jobtime,
+      jobtype,
+      experience,
+      perks,
+      description,
+      salary,
+      duration,
+      city
+    }));
+    navigate("/");
+  };
 
-    const [selectedInternship, setSelectedInternship] = useState('');
-    const [selectedtime, setSelectedtime] = useState('');
-   
-    const handleInternshipChange = (event) => {
-      setSelectedInternship(event.target.value);
-    };
-    const handletimeChange = (event) => {
-        setSelectedtime(event.target.value);
-      };
   return (
     <>
-      <div className='mt-[8%] w-[50%]  m-auto'>
-        <h2 className='text-2xl font-bold mb-2'>Internship details</h2>
-        <form className='border rounded min-h-[100vh] relative mb-3 p-5' action="">
-            <div className='w-full'>
-                <h2 className='font-medium text-zinc-700'>Internship profile</h2>
-                <input className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='e.g. software development' type="text" />
-            </div>
-            <div className='w-full mt-3'>
-                <h2 className='font-medium text-zinc-700'>Skills required</h2>
-                <input className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='e.g. java' type="text" />
-            </div>
-            <div className='w-full mt-3'>
-                <h2 className='font-medium text-zinc-700'>Required experience</h2>
-                <input className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='e.g. java' type="text" />
-            </div>
+      <div className='mt-[8%] w-[50%] m-auto'>
+        <h2 className='text-2xl font-bold mb-2'>Job details</h2>
+        <form className='border rounded min-h-[100vh] relative mb-3 p-5' onSubmit={formhandle}>
+          <div className='w-full'>
+            <h2 className='font-medium text-zinc-700'>Job profile</h2>
+            <input 
+              value={title}
+              onChange={(e) => settitle(e.target.value)} 
+              className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+              placeholder='e.g. software development' 
+              type="text" 
+            />
+          </div>
+          <div className='w-full mt-3'>
+            <h2 className='font-medium text-zinc-700'>Skills required</h2>
+            <input 
+              value={skill}
+              onChange={(e) => setSkill(e.target.value)} 
+              className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+              placeholder='e.g. java' 
+              type="text" 
+            />
+          </div>
+          <div className='w-full mt-3'>
+            <h2 className='font-medium text-zinc-700'>Required experience</h2>
+            <input 
+              value={experience}
+              onChange={(e) => setexperience(e.target.value)} 
+              className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+              placeholder='e.g. java' 
+              type="text" 
+            />
+          </div>
 
-        <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">Select Internship Type</h2>
-      <div className="space-y-2 flex items-baseline gap-3">
-        <label className="flex items-center">
-          <input
-            type="radio"
-            name="internship"
-            value="frontend"
-            checked={selectedInternship === 'frontend'}
-            onChange={handleInternshipChange}
-            className="form-radio text-indigo-600"
-          />
-          <span className="ml-2">In office</span>
-        </label>
-        <label className="flex items-center">
-          <input
-            type="radio"
-            name="internship"
-            value="backend"
-            checked={selectedInternship === 'backend'}
-            onChange={handleInternshipChange}
-            className="form-radio text-indigo-600"
-          />
-          <span className="ml-2">Hybrid</span>
-        </label>
-        <label className="flex items-center">
-          <input
-            type="radio"
-            name="internship"
-            value="fullstack"
-            checked={selectedInternship === 'fullstack'}
-            onChange={handleInternshipChange}
-            className="form-radio text-indigo-600"
-          />
-          <span className="ml-2">Remote</span>
-        </label>
-      </div>
-        </div>
-        <div className="p-4">
+          <div className="p-4">
+            <h2 className="text-lg font-semibold mb-4">Select Job Type</h2>
+            <div className="space-y-2 flex items-baseline gap-3">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="Job"
+                  value="In office"
+                  checked={jobtype === 'In office'}
+                  onChange={(e) => setJobtype(e.target.value)}
+                  className="form-radio text-indigo-600"
+                />
+                <span className="ml-2">In office</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="Job"
+                  value="Hybrid"
+                  checked={jobtype === 'Hybrid'}
+                  onChange={(e) => setJobtype(e.target.value)}
+                  className="form-radio text-indigo-600"
+                />
+                <span className="ml-2">Hybrid</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="Job"
+                  value="Remote"
+                  checked={jobtype === 'Remote'}
+                  onChange={(e) => setJobtype(e.target.value)}
+                  className="form-radio text-indigo-600"
+                />
+                <span className="ml-2">Remote</span>
+              </label>
+            </div>
+          </div>
+          <div className="p-4">
             <h2 className="text-lg font-semibold mb-4">Part-time/Full-time</h2>
             <div className="space-y-2 flex items-baseline gap-3">
-                <label className="flex items-center">
+              <label className="flex items-center">
                 <input
-                    type="radio"
-                    name="ritesh"
-                    value="part"
-                    checked={selectedtime === 'part'}
-                    onChange={handletimeChange}
-                    className="form-radio text-indigo-600"
+                  type="radio"
+                  name="ritesh"
+                  value="Part-time"
+                  checked={jobtime === 'Part-time'}
+                  onChange={(e) => setJobTime(e.target.value)}
+                  className="form-radio text-indigo-600"
                 />
                 <span className="ml-2">Part-time</span>
-                </label>
-                <label className="flex items-center">
+              </label>
+              <label className="flex items-center">
                 <input
-                    type="radio"
-                    name="ritesh"
-                    value="full"
-                    checked={selectedtime === 'full'}
-                    onChange={handletimeChange}
-                    className="form-radio text-indigo-600"
+                  type="radio"
+                  name="ritesh"
+                  value="Full-time"
+                  checked={jobtime === 'Full-time'}
+                  onChange={(e) => setJobTime(e.target.value)}
+                  className="form-radio text-indigo-600"
                 />
-                <span className="ml-2">full-time</span>
-                </label>
-            
+                <span className="ml-2">Full-time</span>
+              </label>
             </div>
-        </div>
-        <div className='w-full mt-3'>
-                <h2 className='font-medium text-zinc-700'>Number of openings</h2>
-                <input className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='e.g. 4' type="text" />
-        </div>
-        <div className=" mt-10 w-full flex gap-[3vh]">
-                        <div className="w-[45%]  ">
-                        <h1 className=" text-base font-semibold mb-2 text-[#272727c1]">
-                            Start date
-                        </h1>
-                        <input
-                            className="w-full pl-[2vh] text-base text-black outline-sky-300  h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
-                            type="date"
-                            name="startyear"
-                            id=""
-                            placeholder="2020"
-                        />{" "}
-                        </div>
-                        <div className="w-[45%]  ">
-                        <h1 className=" text-base font-semibold mb-2 text-[#272727c1]">
-                            End date
-                        </h1>
-                        <input
-                            className="w-full pl-[2vh]  h-[5vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
-                            type="date"
-                            name="endyear"
-                            id=""
-                            placeholder="2024"
-                        />{" "}
-                        </div>
-         </div>
-         <div className='mt-2'>
-            <h2 className=" text-base font-medium mb-3">Intern’s responsibilities</h2>
+          </div>
+          <div className='w-full'>
+                          <h2 className='font-medium text-zinc-700'>City</h2>
+                            <input onChange={(e)=>setcity(e.target.value)} value={city} className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='city' name='city' type="text" />
+                       </div>
+          <div className='w-full mt-3'>
+            <h2 className='font-medium text-zinc-700'>Number of openings</h2>
+            <input 
+              onChange={(e) => setOpenings(e.target.value)} 
+              className='py-[8px] mt-1 w-full rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+              placeholder='e.g. 4' 
+              type="text" 
+            />
+          </div>
+          <div className="mt-10 w-full flex gap-[3vh]">
+            <div className="w-[45%]">
+              <h1 className="text-base font-semibold mb-2 text-[#272727c1]">Start date</h1>
+              <input
+                className="w-full pl-[2vh] text-base text-black outline-sky-300 h-[5vh] border-[1px] border-[#27272748] p-2 rounded-md"
+                type="date"
+                name="startyear"
+                onChange={(e) => setFrom(e.target.value)}
+                placeholder="2020"
+              />
+            </div>
+            <div className="w-[45%]">
+              <h1 className="text-base font-semibold mb-2 text-[#272727c1]">End date</h1>
+              <input
+                className="w-full pl-[2vh] h-[5vh] text-base outline-sky-300 text-black border-[1px] border-[#27272748] p-2 rounded-md"
+                type="date"
+                name="endyear"
+                onChange={(e) => setTo(e.target.value)}
+                placeholder="2024"
+              />
+            </div>
+          </div>
+          <div className='mt-2'>
+            <h2 className="text-base font-medium mb-3">Intern’s responsibilities</h2>
             <textarea
-            className="w-full pl-[2vh]  h-[15vh] text-base outline-sky-300   text-black border-[1px] border-[#27272748] p-2 rounded-md"
-            type="text"
-            name="organization"
-            placeholder="eg. AddDescription"
-            id=""
-            >
-            </textarea>
-         </div>
+              className="w-full pl-[2vh] h-[15vh] text-base outline-sky-300 text-black border-[1px] border-[#27272748] p-2 rounded-md"
+              type="text"
+              name="organization"
+              onChange={(e) => setResponsibility(e.target.value)}
+              placeholder="e.g. AddDescription"
+            />
+          </div>
 
-         <h3 className='text-2xl font-medium'>Stipend & perks</h3>
-         <div className='w-full mt-3'>
-                <h2 className='font-medium text-zinc-700'>Stipend</h2>
-                <input className='py-[8px] mt-1 w-[50%] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' placeholder='e.g. permonth' type="text" />
-         </div>
-         <div className="space-y-4 p-4">
-            <h2 className='font-medium'>perks</h2>
+          <h3 className='text-2xl font-medium'>Salary & Perks</h3>
+          <div className='w-full mt-3'>
+            <h2 className='font-medium text-zinc-700'>Salary</h2>
+            <input 
+              onChange={(e) => setsalary(e.target.value)} 
+              className='py-[8px] mt-1 w-[50%] rounded px-3 border-[1px] outline-[3px] outline-none focus:border-[#00A5EC] border-zinc-300' 
+              placeholder='e.g. per month' 
+              type="text" 
+            />
+          </div>
+          <div className="space-y-4 p-4">
+            <h2 className='font-medium'>Perks</h2>
             <div className="flex items-center">
-                <input
+              <input
                 type="checkbox"
-                name="workFromHome"
-                id="workFromHome"
-                checked={selections.workFromHome}
-                onChange={handleChange}
+                name="Certificate"
+                id="Certificate"
+                checked={perks.includes('Certificate')}
+                onChange={(e) => setPerks(e.target.checked ? [...perks, 'Certificate'] : perks.filter(perk => perk !== 'Certificate'))}
                 className="form-checkbox h-5 w-5 text-blue-600"
-                />
-                <label htmlFor="workFromHome" className="ml-2 font-medium text-gray-800">
-                Certificate
-                </label>
+              />
+              <label htmlFor="Certificate" className="ml-2 font-medium text-gray-800">Certificate</label>
             </div>
             <div className="flex items-center">
-                <input
+              <input
                 type="checkbox"
-                name="partTime"
-                id="partTime"
-                checked={selections.partTime}
-                onChange={handleChange}
+                name="Letter of recommendation"
+                id="Letter of recommendation"
+                checked={perks.includes('Letter of recommendation')}
+                onChange={(e) => setPerks(e.target.checked ? [...perks, 'Letter of recommendation'] : perks.filter(perk => perk !== 'Letter of recommendation'))}
                 className="form-checkbox h-5 w-5 text-blue-600"
-                />
-                <label htmlFor="partTime" className="ml-2 font-medium text-gray-800">
-                Letter of recommendation
-                </label>
+              />
+              <label htmlFor="Letter of recommendation" className="ml-2 font-medium text-gray-800">Letter of recommendation</label>
             </div>
-        </div>
-        <button className='px-3 font-medium absolute right-8 bottom-8 text-white py-2 bg-[#00A5EC] rounded-md'>Post</button>
+          </div>
+          <button className='px-3 font-medium absolute right-8 bottom-8 text-white py-2 bg-[#00A5EC] rounded-md'>Post</button>
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Postjob
+export default Postjob;

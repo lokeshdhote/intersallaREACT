@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 
 const JobSlide = () => {
     const {isAuth }= useSelector((state)=>state.user)
+    const {isAuths }= useSelector((state)=>state.employee)
 
   return (
     <>  
@@ -69,7 +70,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link    to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link    to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className=' border  p-5 flex-col items-start justify-start py-5 lg:w-[17vw!important] lg:h-[40vh!important]  border-zinc-400 w-[92vw!important] h-[45vh!important]' >
@@ -90,7 +91,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link   to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link   to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className=' border  p-5 flex-col items-start justify-start py-5 lg:w-[17vw!important] lg:h-[40vh!important]  border-zinc-400 w-[92vw!important] h-[45vh!important]' >
@@ -111,7 +112,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link   to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link   to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className=' border  p-5 flex-col items-start justify-start py-5 lg:w-[17vw!important] lg:h-[40vh!important]  border-zinc-400 w-[92vw!important] h-[45vh!important]' >
@@ -132,7 +133,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link   to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link   to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className=' border  p-5 flex-col items-start justify-start py-5 lg:w-[17vw!important] lg:h-[40vh!important]  border-zinc-400 w-[92vw!important] h-[45vh!important]' >
@@ -153,7 +154,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link   to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link   to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className=' border  p-5 flex-col items-start justify-start py-5 lg:w-[17vw!important] lg:h-[40vh!important]  border-zinc-400 w-[92vw!important] h-[45vh!important]' >
@@ -174,7 +175,7 @@ const JobSlide = () => {
                             </div>
                             <div className='w-full flex absolute bottom-0 left-0 p-3 mt-10 items-center justify-between lg:px-4'>
                                 <Link className='text-sm text-zinc-600 rounded px-2 py-[2px] bg-zinc-200 lg:text-[1.7vh]'>Internship</Link>
-                                <Link   to={isAuth ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
+                                <Link   to={(!isAuth || !isAuths)  ? "/jobs/details/:id" : "/"}  className='text-base text-[#00A5EC] lg:text-[2vh] font-[400]'>View details</Link>
                             </div>
                         </SwiperSlide>
                         

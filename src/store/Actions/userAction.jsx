@@ -3,6 +3,8 @@ import {
    userSignIN,
    cuurentStudent,
    removeUser,
+   allIntern,
+
 
 
   } from "../Reducers/userSlice";
@@ -66,6 +68,20 @@ try {
     console.log(error);
   }
    }
+
+   export const  asyncintern =  ()=> async (dispatch, getState)=>{
+
+    try {
+      const {data} = await axios.get("api/student/allinternship")
+      console.log(data);
+      console.log(data);
+      dispatch(allIntern(data))
+    } catch (error) {
+      console.log(error);
+    }
+     }
+   
+   
 
 
 
